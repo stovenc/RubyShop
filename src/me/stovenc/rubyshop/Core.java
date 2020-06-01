@@ -124,7 +124,7 @@ public class Core extends JavaPlugin {
 	}
 
 	public void removeCurrencyFromPlayer(OfflinePlayer p, int amount) {
-		if ((coinData.get(p.getUniqueId()) != null) && (coinData.get(p.getUniqueId()) - amount > 0)) {
+		if ((coinData.get(p.getUniqueId()) != null) && (coinData.get(p.getUniqueId()) - amount >= 0)) {
 			coinData.put(p.getUniqueId(), coinData.get(p.getUniqueId()) - amount);
 		}
 	}

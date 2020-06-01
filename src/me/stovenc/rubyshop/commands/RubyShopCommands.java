@@ -285,7 +285,12 @@ public class RubyShopCommands implements CommandExecutor {
 
 		testItem.setItemMeta(tiMeta);
 		inv = Bukkit.createInventory(null, 27, "Shop");
-		inv.setItem(1, CreateCustomItems.createRubyHelm());
+		inv.setItem(0, CreateCustomItems.shopCreateRubyHelm());
+		inv.setItem(1, CreateCustomItems.shopCreateRubyChest());
+		inv.setItem(2, CreateCustomItems.shopCreateRubyLegs());
+		inv.setItem(3, CreateCustomItems.shopCreateRubyBoot());
+		inv.setItem(4, CreateCustomItems.shopCreateRubySword());
+		inv.setItem(5, CreateCustomItems.shopCreateRubyBow());
 		p.openInventory(inv);
 	}
 
