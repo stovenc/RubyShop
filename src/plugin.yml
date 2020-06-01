@@ -1,0 +1,32 @@
+name: RubyShop
+version: 1.0
+author: StovenC
+main: me.stovenc.rubyshop.Core
+description: Ruby Shop Core
+
+commands:
+  ruby:
+    aliases:
+    description: Ruby Core
+permissions:
+  ruby.shop:
+    description: Player shop command!
+    default: op
+  ruby.bal:
+    description: Player balance command!
+    default: op
+  ruby.pay:
+    description: Player pay command!
+    default: op
+  ruby.set:
+    description: Admin set command!
+    default: op
+  ruby.add:
+    description: Admin add command!
+    default: op
+  ruby.remove:
+    description: Admin remove command!
+    default: op
+  ruby.baltop:
+    description: Player balance top command!
+    default: op
