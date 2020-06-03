@@ -1,32 +1,32 @@
-name: RubyShop
+name: TokenShop
 version: 1.0
 author: StovenC
 main: me.stovenc.rubyshop.Core
-description: Ruby Shop Core
+description: Token Shop Core
 
 commands:
-  ruby:
-    aliases:
-    description: Ruby Core
+  tokens:
+    aliases: [token]
+    description: Token Core
 permissions:
-  ruby.shop:
+  tokens.shop:
     description: Player shop command!
     default: op
-  ruby.bal:
+  tokens.bal:
     description: Player balance command!
     default: op
-  ruby.pay:
+  tokens.pay:
     description: Player pay command!
     default: op
-  ruby.set:
+  tokens.set:
     description: Admin set command!
     default: op
-  ruby.add:
+  tokens.add:
     description: Admin add command!
     default: op
-  ruby.remove:
+  tokens.remove:
     description: Admin remove command!
     default: op
-  ruby.baltop:
+  tokens.baltop:
     description: Player balance top command!
     default: op

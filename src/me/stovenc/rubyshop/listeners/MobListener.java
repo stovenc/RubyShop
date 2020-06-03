@@ -51,7 +51,7 @@ public class MobListener implements Listener {
 	                        @Override
 	                        public void run() {
 	                        	TitleManager.sendActionBar(p, Utils.chat(
-	                        			"&a[+] &6&l" + plugin.getRubyFromMob(p) + " Ruby"));
+	                        			"&a[+] &6&l" + plugin.getRubyFromMob(p) + " Token(s)"));
 	                        	plugin.rubyUpdater.get(p.getUniqueId()).setRubyToZero();
 	                        	plugin.rubyUpdater.get(p.getUniqueId()).setTurnToTrue();
 	                        }

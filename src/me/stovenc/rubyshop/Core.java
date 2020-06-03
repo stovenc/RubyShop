@@ -47,7 +47,7 @@ public class Core extends JavaPlugin {
 		instance = this;
 		getConfig().options().copyDefaults(true);
 		saveConfig();
-		getCommand("ruby").setExecutor(new RubyShopCommands());
+		getCommand("tokens").setExecutor(new RubyShopCommands());
 		getServer().getPluginManager().registerEvents(new InvClickEvent(), this);
 		getServer().getPluginManager().registerEvents(new MobListener(), this);
 	}

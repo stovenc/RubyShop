@@ -42,12 +42,12 @@ public class RubyShopCommands implements CommandExecutor {
 			return true;
 		}
 		if (a.length == 0) {
-			s.sendMessage(Utils.chat("&e/ruby <bal:pay:shop:baltop:set:add:remove>"));
+			s.sendMessage(Utils.chat("&e/tokens <bal:pay:shop:baltop:set:add:remove>"));
 			return true;
 		} else if (a.length == 1) {
 			OfflinePlayer pl = (OfflinePlayer) s;
 			if (a[0].equalsIgnoreCase("shop")) {
-				if (s.hasPermission("ruby.shop")) {
+				if (s.hasPermission("tokens.shop")) {
 					openShop(pl);
 					return false;
 				} else {
@@ -55,22 +55,22 @@ public class RubyShopCommands implements CommandExecutor {
 					return false;
 				}
 			} else if (a[0].equalsIgnoreCase("add")) {
-				if (s.hasPermission("ruby.add")) {
-					s.sendMessage(Utils.chat("&e/ruby add <player> <amount>"));
+				if (s.hasPermission("tokens.add")) {
+					s.sendMessage(Utils.chat("&e/tokens add <player> <amount>"));
 				} else {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("top")) {
-				if (s.hasPermission("ruby.baltop")) {
+				if (s.hasPermission("tokens.baltop")) {
 					Map<UUID, Integer> hm1 = sortByValue(plugin.coinData);
 					int i = 0;
 					int maxpages = (hm1.size() / 10) + 1;
-					s.sendMessage(Utils.chat("&d________[ &b&lRuby Top &f<" + "1" + "/" + maxpages + ">&d]________"));
+					s.sendMessage(Utils.chat("&d________[ &b&lToken Top &f<" + "1" + "/" + maxpages + ">&d]________"));
 					for (Entry<UUID, Integer> en : hm1.entrySet()) {
 						if (i == 10)
 							break;
 						s.sendMessage(ChatColor.AQUA + "" + (i + 1) + ". " + ChatColor.WHITE
-								+ getName(en.getKey().toString()) + ": " + ChatColor.GREEN + en.getValue());
+								+ getName(en.getKey().toString()) + ": " + ChatColor.GREEN + Utils.balFormat(en.getValue()));
 						i++;
 					}
 				} else {
@@ -78,26 +78,26 @@ public class RubyShopCommands implements CommandExecutor {
 				}
 			} else if (a[0].equalsIgnoreCase("remove")) {
 				if (s.hasPermission("ruby.remove")) {
-					s.sendMessage(Utils.chat("&e/ruby remove <player> <amount>"));
+					s.sendMessage(Utils.chat("&e/tokens remove <player> <amount>"));
 				} else {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("set")) {
 				if (s.hasPermission("ruby.set")) {
-					s.sendMessage(Utils.chat("&e/ruby set <player> <amount>"));
+					s.sendMessage(Utils.chat("&e/tokens set <player> <amount>"));
 				} else {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("pay")) {
 				if (s.hasPermission("ruby.pay")) {
-					s.sendMessage(Utils.chat("&e/ruby pay <player>"));
+					s.sendMessage(Utils.chat("&e/tokens pay <player>"));
 				} else {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("bal")) {
-				if (s.hasPermission("ruby.bal")) {
+				if (s.hasPermission("tokens.bal")) {
 					s.sendMessage(
-							Utils.chat("&6" + pl.getName() + " &3Ruby Balance: &6" + plugin.getPlayerCurrency(pl)));
+							Utils.chat("&6" + pl.getName() + " &3Token Balance: &6" + Utils.getTokenBal(pl)));
 				} else {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
@@ -106,11 +106,11 @@ public class RubyShopCommands implements CommandExecutor {
 			}
 		} else if (a.length == 2) {
 			if (a[0].equalsIgnoreCase("bal")) {
-				if (s.hasPermission("ruby.bal")) {
+				if (s.hasPermission("tokens.bal")) {
 					OfflinePlayer p = Bukkit.getOfflinePlayer(a[1]);
 					if ((p != null) && (p.hasPlayedBefore())) {
 						s.sendMessage(
-								Utils.chat("&6" + p.getName() + " &3Ruby Balance: &6" + plugin.getPlayerCurrency(p)));
+								Utils.chat("&6" + p.getName() + " &3Token Balance: &6" + Utils.getTokenBal(p)));
 						return true;
 					} else {
 						s.sendMessage(Utils.chat("&4Player does not exist!"));
@@ -119,7 +119,7 @@ public class RubyShopCommands implements CommandExecutor {
 					s.sendMessage(Utils.chat("&4You don't have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("top")) {
-				if (s.hasPermission("ruby.baltop")) {
+				if (s.hasPermission("tokens.baltop")) {
 					if (isInteger(a[1])) {
 						int pagenumber = Integer.parseInt(a[1]);
 						Map<UUID, Integer> hm1 = sortByValue(plugin.coinData);
@@ -128,13 +128,13 @@ public class RubyShopCommands implements CommandExecutor {
 
 						if (!(pagenumber > maxpages)) {
 							s.sendMessage(Utils.chat(
-									"&d________[ &b&lRuby Top &f<" + pagenumber + "/" + maxpages + ">&d]________"));
+									"&d________[ &b&lToken Top &f<" + pagenumber + "/" + maxpages + ">&d]________"));
 							for (Entry<UUID, Integer> en : hm1.entrySet()) {
 								if (i == pagenumber * 10)
 									break;
 								if (i > (pagenumber * 10) - 10) {
 									s.sendMessage(ChatColor.AQUA + "" + (i + 1) + ". " + ChatColor.WHITE
-											+ getName(en.getKey().toString()) + ": " + ChatColor.GREEN + en.getValue());
+											+ getName(en.getKey().toString()) + ": " + ChatColor.GREEN + Utils.balFormat(en.getValue()));
 								}
 								i++;
 							}
@@ -148,20 +148,20 @@ public class RubyShopCommands implements CommandExecutor {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else {
-				s.sendMessage(Utils.chat("&e/ruby <add:remove:set:bal:pay:shop>"));
+				s.sendMessage(Utils.chat("&e/tokens <add:remove:set:bal:pay:shop>"));
 			}
 		} else if (a.length == 3) {
 			OfflinePlayer p = Bukkit.getOfflinePlayer(a[1]);
 			OfflinePlayer p2 = (OfflinePlayer) s;
 
 			if (a[0].equalsIgnoreCase("add")) {
-				if (s.hasPermission("ruby.add")) {
+				if (s.hasPermission("tokens.add")) {
 					if (p != null && p.hasPlayedBefore() && isInteger(a[2])) {
 						int amount = Integer.parseInt(a[2]);
 						if (amount > 0) {
 							plugin.addCurrencyToPlayer(p, amount);
 							s.sendMessage(Utils
-									.chat("&aYou have successfully added &6" + a[2] + " Rubies &ato &e" + p.getName()));
+									.chat("&aYou have successfully added &6" + a[2] + " Tokens &ato &e" + p.getName()));
 						} else if (amount < 0) {
 							s.sendMessage(Utils.chat("&4Amount can't be negative!"));
 						}
@@ -174,19 +174,21 @@ public class RubyShopCommands implements CommandExecutor {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("pay")) {
-				if (s.hasPermission("ruby.pay")) {
+				if (s.hasPermission("tokens.pay")) {
 					if (p.getName() == s.getName()) {
 						s.sendMessage(Utils.chat("&4You can't pay yourself!"));
 					} else if (p != null && p.hasPlayedBefore() && isInteger(a[2])) {
 						int amount = Integer.parseInt(a[2]);
 						if (plugin.getPlayerCurrency(p2) >= amount && amount > 0) {
-							Player ptemp = (Player) p;
+							if (p.isOnline()) {
+								Player ptemp = (Player) p; //problem
+								ptemp.sendMessage(Utils.chat("&aYou have received &6" + amount + " Tokens&a!"));
+							}
 							plugin.removeCurrencyFromPlayer(p2, amount);
 							plugin.addCurrencyToPlayer(p, amount);
-							ptemp.sendMessage(Utils.chat("&aYou have received &6" + amount + " Rubies&a!"));
-							s.sendMessage(Utils.chat("&aYou have paid &6" + p.getName() + " &6$" + amount + "&a!"));
-						} else if (amount < 0) {
-							s.sendMessage(Utils.chat("&4Amount can't be negative!"));
+							s.sendMessage(Utils.chat("&aYou have paid &6" + p.getName() + " &6" + amount + " Tokens&a!"));
+						} else if (amount <= 0) {
+							s.sendMessage(Utils.chat("&4Amount must be greater than zero!"));
 						} else if (!isInteger(a[2])) {
 							s.sendMessage(Utils.chat("&4Incorrect Syntax!"));
 						} else {
@@ -199,13 +201,13 @@ public class RubyShopCommands implements CommandExecutor {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("remove")) {
-				if (s.hasPermission("ruby.remove")) {
+				if (s.hasPermission("tokens.remove")) {
 					if (p != null && p.hasPlayedBefore() && isInteger(a[2])) {
 						int amount = Integer.parseInt(a[2]);
 						if (plugin.getPlayerCurrency(p) >= amount && amount > 0) {
 							plugin.removeCurrencyFromPlayer(p, amount);
 							s.sendMessage(Utils.chat(
-									"&aYou have successfully removed &6" + a[2] + " Rubies &afrom &e" + p.getName()));
+									"&aYou have successfully removed &6" + a[2] + " Tokens &afrom &e" + p.getName()));
 						} else if (amount < 0) {
 							s.sendMessage(Utils.chat("&4Amount can't be negative!"));
 						} else {
@@ -220,13 +222,13 @@ public class RubyShopCommands implements CommandExecutor {
 					s.sendMessage(Utils.chat("&4You do not have permission to execute this command!"));
 				}
 			} else if (a[0].equalsIgnoreCase("set")) {
-				if (s.hasPermission("ruby.set")) {
+				if (s.hasPermission("tokens.set")) {
 					if (p != null && p.hasPlayedBefore() && isInteger(a[2])) {
 						int amount = Integer.parseInt(a[2]);
 						if (amount >= 0) {
 							plugin.setPlayerCurrency(p, amount);
 							s.sendMessage(
-									Utils.chat("&6" + p.getName() + " &6Ruby &abalance set to &6" + a[2] + "&a!"));
+									Utils.chat("&6" + p.getName() + " &6Token &abalance set to &6" + a[2] + "&a!"));
 						} else if (amount < 0) {
 							s.sendMessage(Utils.chat("&4Amount can't be negative!"));
 						}
@@ -241,10 +243,10 @@ public class RubyShopCommands implements CommandExecutor {
 			} else if (a[0].equalsIgnoreCase("bal")) {
 				s.sendMessage(Utils.chat("&4Incorrect Syntax!"));
 			} else {
-				s.sendMessage(Utils.chat("&e/ruby <add:remove:set> <player> <amount>"));
+				s.sendMessage(Utils.chat("&e/tokens <add:remove:set:pay> <player> <amount>"));
 			}
 		} else if (a.length > 3) {
-			s.sendMessage(Utils.chat("&e/ruby <add:remove:set> <player> <amount>"));
+			s.sendMessage(Utils.chat("&e/tokens <add:remove:set:pay> <player> <amount>"));
 		}
 		return false;
 	}

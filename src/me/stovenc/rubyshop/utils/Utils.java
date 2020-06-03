@@ -19,5 +19,9 @@ public class Utils {
 		return formatter.format(plugin.getPlayerCurrency(p));
 	}
 	
+	public static String balFormat(int num) {
+		return formatter.format(num);
+	}
+	
 }
 
