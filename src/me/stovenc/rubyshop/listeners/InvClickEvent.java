@@ -43,9 +43,6 @@ public class InvClickEvent implements Listener{
 				p.sendMessage(Utils.chat("&4Not enough money!"));;
 			} else {
 				plugin.removeCurrencyFromPlayer(offp, price);
-				p.sendMessage(Utils.chat("&aYou have purchased a %item% for %price%!".replaceAll(
-						"%item%", e.getCurrentItem().getType().name()).replaceAll(
-								"%price%", e.getCurrentItem().getItemMeta().getLore().get(1))));
 				
 				if (e.getRawSlot() == 0) {
 					p.getInventory().addItem(new ItemStack(CreateCustomItems.createRubyHelm()));
@@ -57,7 +54,7 @@ public class InvClickEvent implements Listener{
 					p.getInventory().addItem(new ItemStack(CreateCustomItems.createRubyBoot()));
 				} else if (e.getRawSlot() == 4) {
 					p.getInventory().addItem(new ItemStack(CreateCustomItems.createRubySword()));
-				} else if (e.getRawSlot() == 5) {
+				} else if (e.getRawSlot() == 15) {
 					p.getInventory().addItem(new ItemStack(CreateCustomItems.createRubyBow()));
 				}
 			}

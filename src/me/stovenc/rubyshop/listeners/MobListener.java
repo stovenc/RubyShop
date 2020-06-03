@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import me.stovenc.rubyshop.Core;
+import me.stovenc.rubyshop.utils.TitleManager;
 import me.stovenc.rubyshop.utils.Utils;
 
 public class MobListener implements Listener {
@@ -49,14 +50,12 @@ public class MobListener implements Listener {
 	                    scheduler.scheduleSyncDelayedTask(Core.getInstance(), new Runnable() {
 	                        @Override
 	                        public void run() {
-	                        	p.sendMessage(Utils.chat(
-	                        			"&a[+] &6" + plugin.getRubyFromMob(p) + " Ruby &3-> New Balance: &6"
-	                        	+ plugin.getPlayerCurrency(mcPlayer)));
-	                        	
+	                        	TitleManager.sendActionBar(p, Utils.chat(
+	                        			"&a[+] &6&l" + plugin.getRubyFromMob(p) + " Ruby"));
 	                        	plugin.rubyUpdater.get(p.getUniqueId()).setRubyToZero();
 	                        	plugin.rubyUpdater.get(p.getUniqueId()).setTurnToTrue();
 	                        }
-	                    }, 150L);
+	                    }, 50L);
 	                }
 	                
 	                plugin.addCurrencyToPlayer(mcPlayer, 1);

@@ -1,8 +1,8 @@
 package me.stovenc.rubyshop.commands;
 
 import java.io.IOException;
+
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -16,15 +16,12 @@ import java.util.UUID;
 import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -278,19 +275,25 @@ public class RubyShopCommands implements CommandExecutor {
 
 	public void openShop(OfflinePlayer s) {
 		Player p = (Player) s;
-		ItemStack testItem = new ItemStack(Material.DIAMOND);
-		ItemMeta tiMeta = testItem.getItemMeta();
-		tiMeta.setDisplayName(Utils.chat("&3Dismond &9- &7(Click to Purachse)"));
-		tiMeta.setLore(Arrays.asList(Utils.chat("&cPrice &7(in coins)"), "10"));
-
-		testItem.setItemMeta(tiMeta);
 		inv = Bukkit.createInventory(null, 27, "Shop");
-		inv.setItem(0, CreateCustomItems.shopCreateRubyHelm());
-		inv.setItem(1, CreateCustomItems.shopCreateRubyChest());
-		inv.setItem(2, CreateCustomItems.shopCreateRubyLegs());
-		inv.setItem(3, CreateCustomItems.shopCreateRubyBoot());
-		inv.setItem(4, CreateCustomItems.shopCreateRubySword());
-		inv.setItem(5, CreateCustomItems.shopCreateRubyBow());
+		inv.setItem(0, CreateCustomItems.createSpacer());
+		inv.setItem(1, CreateCustomItems.createSpacer());
+		inv.setItem(2, CreateCustomItems.shopCreateRubyHelm());
+		inv.setItem(3, CreateCustomItems.shopCreateRubyChest());
+		inv.setItem(4, CreateCustomItems.shopCreateRubyLegs());
+		inv.setItem(5, CreateCustomItems.shopCreateRubyBoot());
+		inv.setItem(6, CreateCustomItems.shopCreateRubySword());
+		inv.setItem(7, CreateCustomItems.createSpacer());
+		inv.setItem(8, CreateCustomItems.createSpacer());
+		inv.setItem(9, CreateCustomItems.createSpacer());
+		inv.setItem(10, CreateCustomItems.createSpacer());
+		inv.setItem(15, CreateCustomItems.shopCreateRubyBow());
+		inv.setItem(16, CreateCustomItems.createSpacer());
+		inv.setItem(17, CreateCustomItems.createSpacer());
+		inv.setItem(18, CreateCustomItems.createSpacer());
+		inv.setItem(19, CreateCustomItems.createSpacer());
+		inv.setItem(25, CreateCustomItems.createSpacer());
+		inv.setItem(26, CreateCustomItems.createTokenBal(s));
 		p.openInventory(inv);
 	}
 
